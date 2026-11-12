@@ -3,7 +3,7 @@ import postgres from "postgres";
 import dotenv from 'dotenv';
 
 dotenv.config();
-const connectionString = process.env.DATABASEURL!;
+const connectionString = process.env.DATABASE_URL!;
 
 const client = postgres(connectionString, {
     ssl: process.env.NODE_ENV === "production" ? "require" : false
