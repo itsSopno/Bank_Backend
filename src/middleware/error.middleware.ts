@@ -29,3 +29,17 @@ export const errorHandler = (
         ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
     })
 }
+/**
+ * 404 Not Found Middleware
+ * যদি কোনো রিকোয়েস্টের URL আমাদের ডিফাইন করা কোনো রাউটের সাথে না মেলে
+ */
+export const notFoundHandler = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): void => {
+    res.status(404).json({
+        success: false,
+        message: `Route ${req.method} ${req.originalUrl} not found on this server`,
+    });
+};
