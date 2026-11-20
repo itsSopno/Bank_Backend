@@ -1,43 +1,47 @@
 import {
-  pgTable,
+  pgSchema,
   serial,
   text,
   timestamp,
   numeric,
   boolean,
   integer,
-  pgEnum,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 // ==========================================
-// 1. ENUMS
+// DEDICATED SCHEMA FOR BANKING SYSTEM
 // ==========================================
-export const userRoleEnum = pgEnum("user_role", [
+export const bank = pgSchema("bank");
+
+// ==========================================
+// 1. ENUMS (under bank schema)
+// ==========================================
+export const userRoleEnum = bank.enum("user_role", [
   "admin",
   "bank_staff",
   "customer",
 ]);
 
-export const userStatusEnum = pgEnum("user_status", [
+export const userStatusEnum = bank.enum("user_status", [
   "active",
   "inactive",
   "blocked",
 ]);
 
-export const accountTypeEnum = pgEnum("account_type", [
+export const accountTypeEnum = bank.enum("account_type", [
   "savings",
   "current",
   "business",
 ]);
 
-export const accountStatusEnum = pgEnum("account_status", [
+export const accountStatusEnum = bank.enum("account_status", [
   "active",
   "frozen",
   "closed",
 ]);
 
-export const transactionTypeEnum = pgEnum("transaction_type", [
+export const transactionTypeEnum = bank.enum("transaction_type", [
   "deposit",
   "withdrawal",
   "fund_transfer",
@@ -45,32 +49,32 @@ export const transactionTypeEnum = pgEnum("transaction_type", [
   "loan_repayment",
 ]);
 
-export const transactionStatusEnum = pgEnum("transaction_status", [
+export const transactionStatusEnum = bank.enum("transaction_status", [
   "pending",
   "completed",
   "failed",
   "reversed",
 ]);
 
-export const requestTypeEnum = pgEnum("request_type", [
+export const requestTypeEnum = bank.enum("request_type", [
   "deposit",
   "withdrawal",
 ]);
 
-export const requestStatusEnum = pgEnum("request_status", [
+export const requestStatusEnum = bank.enum("request_status", [
   "pending",
   "approved",
   "rejected",
 ]);
 
-export const loanTypeEnum = pgEnum("loan_type", [
+export const loanTypeEnum = bank.enum("loan_type", [
   "personal",
   "home",
   "business",
   "education",
 ]);
 
-export const loanStatusEnum = pgEnum("loan_status", [
+export const loanStatusEnum = bank.enum("loan_status", [
   "pending",
   "under_review",
   "approved",
@@ -79,7 +83,7 @@ export const loanStatusEnum = pgEnum("loan_status", [
   "completed",
 ]);
 
-export const notificationTypeEnum = pgEnum("notification_type", [
+export const notificationTypeEnum = bank.enum("notification_type", [
   "transfer",
   "deposit",
   "withdrawal",
@@ -91,7 +95,7 @@ export const notificationTypeEnum = pgEnum("notification_type", [
 // ==========================================
 // 2. USERS TABLE
 // ==========================================
-export const users = pgTable("users", {
+export const users = bank.table("users", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
@@ -108,7 +112,7 @@ export const users = pgTable("users", {
 // ==========================================
 // 3. BANK ACCOUNTS TABLE
 // ==========================================
-export const accounts = pgTable("accounts", {
+export const accounts = bank.table("accounts", {
   id: serial("id").primaryKey(),
   accountNumber: text("account_number").notNull().unique(),
   userId: integer("user_id")
@@ -138,7 +142,7 @@ export const accounts = pgTable("accounts", {
 // ==========================================
 // 4. TRANSACTIONS TABLE
 // ==========================================
-export const transactions = pgTable("transactions", {
+export const transactions = bank.table("transactions", {
   id: serial("id").primaryKey(),
   transactionId: text("transaction_id").notNull().unique(),
   senderAccountId: integer("sender_account_id").references(() => accounts.id),
@@ -159,7 +163,7 @@ export const transactions = pgTable("transactions", {
 // ==========================================
 // 5. DEPOSIT & WITHDRAWAL REQUESTS TABLE
 // ==========================================
-export const depositWithdrawalRequests = pgTable("deposit_withdrawal_requests", {
+export const depositWithdrawalRequests = bank.table("deposit_withdrawal_requests", {
   id: serial("id").primaryKey(),
   accountId: integer("account_id")
     .references(() => accounts.id, { onDelete: "cascade" })
@@ -181,7 +185,7 @@ export const depositWithdrawalRequests = pgTable("deposit_withdrawal_requests", 
 // ==========================================
 // 6. LOANS TABLE
 // ==========================================
-export const loans = pgTable("loans", {
+export const loans = bank.table("loans", {
   id: serial("id").primaryKey(),
   loanId: text("loan_id").notNull().unique(),
   userId: integer("user_id")
@@ -212,7 +216,7 @@ export const loans = pgTable("loans", {
 // ==========================================
 // 7. LOAN REPAYMENTS TABLE
 // ==========================================
-export const loanRepayments = pgTable("loan_repayments", {
+export const loanRepayments = bank.table("loan_repayments", {
   id: serial("id").primaryKey(),
   loanId: integer("loan_id")
     .references(() => loans.id, { onDelete: "cascade" })
@@ -229,7 +233,7 @@ export const loanRepayments = pgTable("loan_repayments", {
 // ==========================================
 // 8. NOTIFICATIONS TABLE
 // ==========================================
-export const notifications = pgTable("notifications", {
+export const notifications = bank.table("notifications", {
   id: serial("id").primaryKey(),
   userId: integer("user_id")
     .references(() => users.id, { onDelete: "cascade" })
@@ -244,7 +248,7 @@ export const notifications = pgTable("notifications", {
 // ==========================================
 // 9. BANK SETTINGS TABLE
 // ==========================================
-export const bankSettings = pgTable("bank_settings", {
+export const bankSettings = bank.table("bank_settings", {
   id: serial("id").primaryKey(),
   defaultDailyTransferLimit: numeric("default_daily_transfer_limit", {
     precision: 15,

@@ -26,3 +26,4 @@ router.post("/set-pin", authenticate, validate(setPinSchema), setTransactionPin)
 router.post("/logout", authenticate, logout);
 
 export default router;
+
