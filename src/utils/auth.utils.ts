@@ -53,7 +53,7 @@ export const comparePin = async (
  * des : create jwt toker for user
  */
 
-export const genareteToken = (payload: TokenPayLoad): string => {
+export const generateToken = (payload: TokenPayLoad): string => {
     return jwt.sign(payload, JWT_SECRET, {
         expiresIn: JWT_EXPIRES_IN as any,
     })
