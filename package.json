@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/app/app.ts",
+    "dev": "tsx watch src/index.ts",
     "build": "npx tsc",
     "start": "node dist/index.js",
     "db:generate": "drizzle-kit generate",
