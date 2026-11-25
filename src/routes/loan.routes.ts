@@ -59,3 +59,4 @@ router.post("/:id/repay", authenticate, validate(repayLoanSchema), repayLoan);
 router.get("/:id", authenticate, getLoanById);
 
 export default router;
+

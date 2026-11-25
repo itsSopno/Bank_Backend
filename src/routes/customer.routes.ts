@@ -19,3 +19,4 @@ router.get("/:id", authenticate, authorizeRoles("admin", "bank_staff"), getCusto
 router.patch("/:id/status", authenticate, authorizeRoles("admin"), updateCustomerStatus);
 
 export default router;
+

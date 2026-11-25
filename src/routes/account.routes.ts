@@ -64,3 +64,4 @@ router.patch(
 router.get("/:id", authenticate, getAccountById);
 
 export default router;
+

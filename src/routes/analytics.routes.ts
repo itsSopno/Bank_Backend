@@ -19,3 +19,4 @@ router.get("/customer", authenticate, getCustomerAnalytics);
 router.get("/staff", authenticate, authorizeRoles("admin", "bank_staff"), getStaffAnalytics);
 
 export default router;
+

@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/app/app.ts",
-    "build": "tsc",
-    "start": "node dist/app/app.js",
+    "build": "npx tsc",
+    "start": "node dist/index.js",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
@@ -14,6 +14,12 @@
   },
   "dependencies": {
     "@supabase/server": "^1.9.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.6.6",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -23,17 +29,11 @@
     "ioredis": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "postgres": "^4.1.1",
+    "typescript": "^7.0.2",
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/cookie-parser": "^1.4.10",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^26.6.6",
     "drizzle-kit": "^0.31.11",
-    "tsx": "^4.23.15",
-    "typescript": "^7.0.2"
+    "tsx": "^4.23.15"
   }
 }

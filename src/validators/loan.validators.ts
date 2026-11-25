@@ -58,3 +58,4 @@ export type ApplyLoanInput = z.infer<typeof applyLoanSchema>;
 export type StaffReviewLoanInput = z.infer<typeof staffReviewLoanSchema>;
 export type AdminReviewLoanInput = z.infer<typeof adminReviewLoanSchema>;
 export type RepayLoanInput = z.infer<typeof repayLoanSchema>;
+

@@ -31,3 +31,4 @@ export const updateAccountLimitsSchema = z.object({
 export type CreateAccountInput = z.infer<typeof createAccountSchema>;
 export type UpdateAccountStatusInput = z.infer<typeof updateAccountStatusSchema>;
 export type UpdateAccountLimitsInput = z.infer<typeof updateAccountLimitsSchema>;
+

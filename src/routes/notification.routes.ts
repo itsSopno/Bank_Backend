@@ -18,3 +18,4 @@ router.patch("/read-all", authenticate, markAllNotificationsAsRead);
 router.patch("/:id/read", authenticate, markNotificationAsRead);
 
 export default router;
+
